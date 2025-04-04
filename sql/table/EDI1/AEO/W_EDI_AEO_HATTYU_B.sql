@@ -1,0 +1,165 @@
+--------------------------------------------------------------------------------
+-- 0) テーブル削除
+--------------------------------------------------------------------------------
+DROP TABLE W_EDI_AEO_HATTYU_B;
+
+--------------------------------------------------------------------------------
+-- 1) テーブル作成
+--------------------------------------------------------------------------------
+CREATE GLOBAL TEMPORARY TABLE W_EDI_AEO_HATTYU_B (
+    LINE1   NUMBER(4),         -- 行番号1
+    LINE2   NUMBER(4),         -- 行番号2
+    BMSB001 VARCHAR2(1),       -- 識別子
+    BMSB002 VARCHAR2(10),      -- 取引番号
+    BMSB003 VARCHAR2(10),      -- 取引付属番号
+    BMSB004 VARCHAR2(13),      -- 直接納品先コード
+    BMSB005 VARCHAR2(13),      -- 直接納品先GLN
+    BMSB006 VARCHAR2(40),      -- 直接納品先名称
+    BMSB007 VARCHAR2(20),      -- 直接納品先名称カナ
+    BMSB008 VARCHAR2(13),      -- 最終納品先コード
+    BMSB009 VARCHAR2(13),      -- 最終納品先GLN
+    BMSB010 VARCHAR2(40),      -- 最終納品先名称
+    BMSB011 VARCHAR2(20),      -- 最終納品先名称カナ
+    BMSB012 VARCHAR2(13),      -- 計上部署コード
+    BMSB013 VARCHAR2(13),      -- 計上部署GLN
+    BMSB014 VARCHAR2(20),      -- 計上部署名称（カナ）
+    BMSB015 VARCHAR2(13),      -- 陳列場所コード
+    BMSB016 VARCHAR2(40),      -- 陳列場所名称
+    BMSB017 VARCHAR2(20),      -- 陳列場所名称カナ
+    BMSB018 VARCHAR2(13),      -- 請求取引先コード
+    BMSB019 VARCHAR2(13),      -- 請求取引先GLN
+    BMSB020 VARCHAR2(40),      -- 請求取引先名称
+    BMSB021 VARCHAR2(20),      -- 請求取引先名称カナ
+    BMSB022 VARCHAR2(13),      -- 取引先コード
+    BMSB023 VARCHAR2(13),      -- 取引先GLN
+    BMSB024 VARCHAR2(40),      -- 取引先名称
+    BMSB025 VARCHAR2(20),      -- 取引先名称カナ
+    BMSB026 VARCHAR2(2),       -- 枝番
+    BMSB027 VARCHAR2(4),       -- 出荷先コード
+    BMSB028 VARCHAR2(13),      -- 出荷場所GLN
+    BMSB029 VARCHAR2(2),       -- 納品経路
+    BMSB030 VARCHAR2(2),       -- 便No
+    BMSB031 VARCHAR2(2),       -- 通過在庫区分
+    BMSB032 VARCHAR2(2),       -- 納品区分
+    BMSB033 VARCHAR2(6),       -- 指定納品時刻
+    BMSB034 VARCHAR2(13),      -- バーコード情報
+    BMSB035 VARCHAR2(10),      -- カテゴリー名称1（印字用）
+    BMSB036 VARCHAR2(10),      -- カテゴリー名称2（印字用）
+    BMSB037 VARCHAR2(10),      -- 最終納品先略称（印字用）
+    BMSB038 VARCHAR2(120),     -- ラベル自由使用欄（印字用）
+    BMSB039 VARCHAR2(60),      -- ラベル自由使用欄半角カナ（印字用）
+    BMSB040 VARCHAR2(10),      -- 商品分類（大）
+    BMSB041 VARCHAR2(10),      -- 商品分類（中）
+    BMSB042 CHAR(8),           -- 発注日（8桁文字）
+    BMSB043 CHAR(8),           -- 直接納品先納品日（8桁文字）
+    BMSB044 CHAR(8),           -- 最終納品先納品日（8桁文字）
+    BMSB045 CHAR(8),           -- 計上日（8桁文字）
+    BMSB046 CHAR(8),           -- 販促開始日（8桁文字）
+    BMSB047 CHAR(8),           -- 販促終了日（8桁文字）
+    BMSB048 CHAR(8),           -- 取引（発注・返品）データ有効日（8桁文字）
+    BMSB049 VARCHAR2(2),       -- 商品区分
+    BMSB050 VARCHAR2(2),       -- 発注区分
+    BMSB051 VARCHAR2(2),       -- 出荷データ有無区分
+    BMSB052 VARCHAR2(2),       -- 取引番号区分
+    BMSB053 VARCHAR2(2),       -- PB区分
+    BMSB054 VARCHAR2(2),       -- 配送温度区分
+    BMSB055 VARCHAR2(2),       -- 酒区分
+    BMSB056 VARCHAR2(2),       -- パック区分
+    BMSB057 VARCHAR2(2),       -- 不定貫区分
+    BMSB058 VARCHAR2(2),       -- 処理種別
+    BMSB059 VARCHAR2(2),       -- 伝票レス区分
+    BMSB060 VARCHAR2(2),       -- 税区分
+    BMSB061 NUMBER(4,1),       -- 税率
+    BMSB062 VARCHAR2(120),     -- 自由使用欄
+    BMSB063 VARCHAR2(60),      -- 自由使用欄半角カナ
+    BMSB064 NUMBER(10,0),      -- 原価金額合計
+    BMSB065 NUMBER(10,0),      -- 売価金額合計
+    BMSB066 NUMBER(10,0),      -- 税額合計金額
+    BMSB067 NUMBER(6,0),       -- 数量合計
+    BMSB068 NUMBER(6,0),       -- 発注単位数量合計
+    BMSB069 NUMBER(16,3),      -- 重量合計
+    BMSB070 VARCHAR2(122),     -- （空白）
+    CONSTRAINT PK_W_EDI_AEO_HATTYU_B PRIMARY KEY (LINE1, LINE2) ENABLE
+)
+ON COMMIT DELETE ROWS;
+
+--------------------------------------------------------------------------------
+-- 2) テーブルコメント
+--------------------------------------------------------------------------------
+COMMENT ON TABLE W_EDI_AEO_HATTYU_B IS 'EDI発注データ（流通BMS）Bレコードワーク';
+
+--------------------------------------------------------------------------------
+-- 3) カラムコメント
+--------------------------------------------------------------------------------
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.LINE1   IS '行番号1';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.LINE2   IS '行番号2';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB001 IS '識別子';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB002 IS '取引番号';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB003 IS '取引付属番号';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB004 IS '直接納品先コード';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB005 IS '直接納品先GLN';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB006 IS '直接納品先名称';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB007 IS '直接納品先名称カナ';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB008 IS '最終納品先コード';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB009 IS '最終納品先GLN';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB010 IS '最終納品先名称';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB011 IS '最終納品先名称カナ';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB012 IS '計上部署コード';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB013 IS '計上部署GLN';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB014 IS '計上部署名称（カナ）';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB015 IS '陳列場所コード';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB016 IS '陳列場所名称';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB017 IS '陳列場所名称カナ';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB018 IS '請求取引先コード';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB019 IS '請求取引先GLN';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB020 IS '請求取引先名称';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB021 IS '請求取引先名称カナ';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB022 IS '取引先コード';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB023 IS '取引先GLN';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB024 IS '取引先名称';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB025 IS '取引先名称カナ';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB026 IS '枝番';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB027 IS '出荷先コード';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB028 IS '出荷場所GLN';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB029 IS '納品経路';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB030 IS '便No';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB031 IS '通過在庫区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB032 IS '納品区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB033 IS '指定納品時刻';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB034 IS 'バーコード情報';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB035 IS 'カテゴリー名称1（印字用）';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB036 IS 'カテゴリー名称2（印字用）';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB037 IS '最終納品先略称（印字用）';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB038 IS 'ラベル自由使用欄（印字用）';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB039 IS 'ラベル自由使用欄半角カナ（印字用）';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB040 IS '商品分類（大）';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB041 IS '商品分類（中）';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB042 IS '発注日';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB043 IS '直接納品先納品日';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB044 IS '最終納品先納品日';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB045 IS '計上日';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB046 IS '販促開始日';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB047 IS '販促終了日';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB048 IS '取引（発注・返品）データ有効日';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB049 IS '商品区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB050 IS '発注区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB051 IS '出荷データ有無区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB052 IS '取引番号区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB053 IS 'PB区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB054 IS '配送温度区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB055 IS '酒区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB056 IS 'パック区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB057 IS '不定貫区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB058 IS '処理種別';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB059 IS '伝票レス区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB060 IS '税区分';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB061 IS '税率';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB062 IS '自由使用欄';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB063 IS '自由使用欄半角カナ';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB064 IS '原価金額合計';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB065 IS '売価金額合計';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB066 IS '税額合計金額';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB067 IS '数量合計';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB068 IS '発注単位数量合計';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB069 IS '重量合計';
+COMMENT ON COLUMN W_EDI_AEO_HATTYU_B.BMSB070 IS '（空白）';

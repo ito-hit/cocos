@@ -1,0 +1,163 @@
+--------------------------------------------------------------------------------
+-- 0) テーブル削除
+--------------------------------------------------------------------------------
+DROP TABLE W_EDI_YAM_JYUTYU_B;
+
+--------------------------------------------------------------------------------
+-- 1) テーブル作成
+--------------------------------------------------------------------------------
+CREATE GLOBAL TEMPORARY TABLE W_EDI_YAM_JYUTYU_B (
+    LINE1   NUMBER(4),         -- 行番号1
+    LINE2   NUMBER(4),         -- 行番号2
+    DATB001 VARCHAR2(1),       -- 識別子
+    DATB002 VARCHAR2(10),      -- 取引番号
+    DATB003 VARCHAR2(10),      -- 取引付属番号
+    DATB004 VARCHAR2(13),      -- 直接納品先コード
+    DATB005 VARCHAR2(13),      -- 直接納品先GLN
+    DATB006 VARCHAR2(40),      -- 直接納品先名称
+    DATB007 VARCHAR2(20),      -- 直接納品先名称カナ
+    DATB008 VARCHAR2(13),      -- 最終納品先コード
+    DATB009 VARCHAR2(13),      -- 最終納品先GLN
+    DATB010 VARCHAR2(40),      -- 最終納品先名称
+    DATB011 VARCHAR2(20),      -- 最終納品先名称カナ
+    DATB012 VARCHAR2(13),      -- 計上部署コード
+    DATB013 VARCHAR2(13),      -- 計上部署GLN
+    DATB014 VARCHAR2(20),      -- 計上部署名称（カナ）
+    DATB015 VARCHAR2(13),      -- 陳列場所コード
+    DATB016 VARCHAR2(40),      -- 陳列場所名称
+    DATB017 VARCHAR2(20),      -- 陳列場所名称カナ
+    DATB018 VARCHAR2(13),      -- 請求取引先コード
+    DATB019 VARCHAR2(13),      -- 請求取引先GLN
+    DATB020 VARCHAR2(40),      -- 請求取引先名称
+    DATB021 VARCHAR2(20),      -- 請求取引先名称カナ
+    DATB022 VARCHAR2(13),      -- 取引先コード
+    DATB023 VARCHAR2(13),      -- 取引先GLN
+    DATB024 VARCHAR2(40),      -- 取引先名称
+    DATB025 VARCHAR2(20),      -- 取引先名称カナ
+    DATB026 VARCHAR2(2),       -- 枝番
+    DATB027 VARCHAR2(4),       -- 出荷先コード
+    DATB028 VARCHAR2(13),      -- 出荷場所GLN
+    DATB029 VARCHAR2(2),       -- 納品経路
+    DATB030 VARCHAR2(2),       -- 便No
+    DATB031 VARCHAR2(2),       -- 通過在庫区分
+    DATB032 VARCHAR2(2),       -- 納品区分
+    DATB033 VARCHAR2(6),       -- 指定納品時刻
+    DATB034 VARCHAR2(13),      -- バーコード情報
+    DATB035 VARCHAR2(10),      -- カテゴリー名称1（印字用）
+    DATB036 VARCHAR2(10),      -- カテゴリー名称2（印字用）
+    DATB037 VARCHAR2(10),      -- 最終納品先略称（印字用）
+    DATB038 VARCHAR2(120),     -- ラベル自由使用欄（印字用）
+    DATB039 VARCHAR2(60),      -- ラベル自由使用欄半角カナ（印字用）
+    DATB040 VARCHAR2(10),      -- 商品分類（大）
+    DATB041 VARCHAR2(10),      -- 商品分類（中）
+    DATB042 VARCHAR2(8),       -- 発注日（8桁文字）
+    DATB043 VARCHAR2(8),       -- 直接納品先納品日（8桁文字）
+    DATB044 VARCHAR2(8),       -- 最終納品先納品日（8桁文字）
+    DATB045 VARCHAR2(8),       -- 計上日（8桁文字）
+    DATB046 VARCHAR2(8),       -- 販促開始日（8桁文字）
+    DATB047 VARCHAR2(8),       -- 販促終了日（8桁文字）
+    DATB048 VARCHAR2(8),       -- 取引（発注・返品）データ有効日（8桁文字）
+    DATB049 VARCHAR2(2),       -- 商品区分
+    DATB050 VARCHAR2(2),       -- 発注区分
+    DATB051 VARCHAR2(2),       -- 出荷データ有無区分
+    DATB052 VARCHAR2(2),       -- 取引番号区分
+    DATB053 VARCHAR2(2),       -- PB区分
+    DATB054 VARCHAR2(2),       -- 配送温度区分
+    DATB055 VARCHAR2(2),       -- 酒区分
+    DATB056 VARCHAR2(2),       -- パック区分
+    DATB057 VARCHAR2(2),       -- 不定貫区分
+    DATB058 VARCHAR2(2),       -- 処理種別
+    DATB059 VARCHAR2(2),       -- 伝票レス区分
+    DATB060 VARCHAR2(2),       -- 税区分
+    DATB061 NUMBER(3,1),       -- 税率
+    DATB062 VARCHAR2(120),     -- 自由使用欄
+    DATB063 VARCHAR2(60),      -- 自由使用欄半角カナ
+    DATB064 NUMBER(10,0),      -- 原価金額合計
+    DATB065 NUMBER(10,0),      -- 売価金額合計
+    DATB066 NUMBER(10,0),      -- 税額合計金額
+    DATB067 NUMBER(6,0),       -- 数量合計
+    DATB068 NUMBER(6,0),       -- 発注単位数量合計
+    DATB069 NUMBER(13,3),      -- 重量合計
+    CONSTRAINT PK_W_EDI_YAM_JYUTYU_B PRIMARY KEY (LINE1, LINE2) ENABLE
+)
+ON COMMIT DELETE ROWS;
+
+--------------------------------------------------------------------------------
+-- 2) テーブルコメント
+--------------------------------------------------------------------------------
+COMMENT ON TABLE W_EDI_YAM_JYUTYU_B IS 'EDI受注データ（流通BMS）Bレコードワーク';
+
+--------------------------------------------------------------------------------
+-- 3) カラムコメント
+--------------------------------------------------------------------------------
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.LINE1   IS '行番号1';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.LINE2   IS '行番号2';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB001 IS '識別子';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB002 IS '取引番号';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB003 IS '取引付属番号';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB004 IS '直接納品先コード';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB005 IS '直接納品先GLN';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB006 IS '直接納品先名称';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB007 IS '直接納品先名称カナ';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB008 IS '最終納品先コード';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB009 IS '最終納品先GLN';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB010 IS '最終納品先名称';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB011 IS '最終納品先名称カナ';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB012 IS '計上部署コード';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB013 IS '計上部署GLN';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB014 IS '計上部署名称（カナ）';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB015 IS '陳列場所コード';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB016 IS '陳列場所名称';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB017 IS '陳列場所名称カナ';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB018 IS '請求取引先コード';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB019 IS '請求取引先GLN';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB020 IS '請求取引先名称';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB021 IS '請求取引先名称カナ';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB022 IS '取引先コード';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB023 IS '取引先GLN';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB024 IS '取引先名称';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB025 IS '取引先名称カナ';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB026 IS '枝番';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB027 IS '出荷先コード';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB028 IS '出荷場所GLN';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB029 IS '納品経路';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB030 IS '便No';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB031 IS '通過在庫区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB032 IS '納品区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB033 IS '指定納品時刻';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB034 IS 'バーコード情報';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB035 IS 'カテゴリー名称1（印字用）';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB036 IS 'カテゴリー名称2（印字用）';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB037 IS '最終納品先略称（印字用）';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB038 IS 'ラベル自由使用欄（印字用）';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB039 IS 'ラベル自由使用欄半角カナ（印字用）';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB040 IS '商品分類（大）';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB041 IS '商品分類（中）';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB042 IS '発注日';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB043 IS '直接納品先納品日';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB044 IS '最終納品先納品日';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB045 IS '計上日';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB046 IS '販促開始日';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB047 IS '販促終了日';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB048 IS '取引（発注・返品）データ有効日';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB049 IS '商品区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB050 IS '発注区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB051 IS '出荷データ有無区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB052 IS '取引番号区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB053 IS 'PB区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB054 IS '配送温度区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB055 IS '酒区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB056 IS 'パック区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB057 IS '不定貫区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB058 IS '処理種別';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB059 IS '伝票レス区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB060 IS '税区分';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB061 IS '税率';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB062 IS '自由使用欄';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB063 IS '自由使用欄半角カナ';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB064 IS '原価金額合計';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB065 IS '売価金額合計';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB066 IS '税額合計金額';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB067 IS '数量合計';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB068 IS '発注単位数量合計';
+COMMENT ON COLUMN W_EDI_YAM_JYUTYU_B.DATB069 IS '重量合計';
